@@ -14,7 +14,6 @@
 
             do
             {
-
                 Console.WriteLine("===== EMPLOYEE INFORMATION SYSTEM =====");
                 Console.WriteLine("1. Hire Employee");
                 Console.WriteLine("2. Promote Employee");
@@ -55,27 +54,40 @@
 
         static void HireEmployee()
         {
-            if (count > 5)
+            if (count >= 5)
             {
                 Console.WriteLine("\nEmployee Limit Reached.");
                 return;
             }
+
 
             string more = "Y";
 
             while (more.ToUpper() == "Y" && count < 5)
             {
                 Console.Write("Enter Name: ");
-                names[count] = Console.ReadLine();
+                string name = Console.ReadLine().Trim();
+              
+                while (name == "")
+                {
+                    Console.Write("Name Cannot Be Empty. Please Enter Name: ");
+                    name = Console.ReadLine().Trim();
+                }
+                
 
                 Console.Write("Enter Position: ");
-                positions[count] = Console.ReadLine();
+                string position = Console.ReadLine().Trim();
 
+                while (position = "")
+                {
+                    Console.Write("Department Cannot Be Empty. Please Enter Department: ");
+                    name = Console.ReadLine().Trim();
+                }
                 Console.Write("Enter Department: ");
                 departments[count] = Console.ReadLine();
 
                 Console.Write("Enter Salary: ");
-                salaries[count] = Convert.ToDouble(Console.ReadLine()); // simple
+                salaries[count] = Convert.ToDouble(Console.ReadLine()); 
 
                 count++;
                 Console.WriteLine("\nEMPLOYEE HIRED SUCCESSFULLY!");
