@@ -1,12 +1,12 @@
-﻿namespace infomanagemnt_allysa
+﻿using System;
+using EmployeeManagementModels;
+using EmployeeManagementAppService;
+
+namespace EmployeeManagementUI
 {
-    internal class Program
+    class Program
     {
-        static string[] names = new string[5];
-        static string[] positions = new string[5];
-        static string[] departments = new string[5];
-        static double[] salaries = new double[5];
-        static int count = 0;
+        static EmployeeAppService service = new EmployeeAppService();
 
         static void Main(string[] args)
         {
@@ -14,7 +14,7 @@
 
             do
             {
-                Console.WriteLine("===== EMPLOYEE INFORMATION SYSTEM =====");
+                Console.WriteLine("===== EMPLOYEE MANAGEMENT SYSTEM =====");
                 Console.WriteLine("1. Hire Employee");
                 Console.WriteLine("2. Promote Employee");
                 Console.WriteLine("3. Transfer Department");
@@ -29,18 +29,23 @@
                     case 1:
                         HireEmployee();
                         break;
+
                     case 2:
                         PromoteEmployee();
                         break;
+
                     case 3:
                         TransferEmployee();
                         break;
+
                     case 4:
                         ViewEmployees();
                         break;
+
                     case 5:
                         Console.WriteLine("Exiting System...");
                         break;
+
                     default:
                         Console.WriteLine("Invalid Choice.");
                         break;
@@ -48,140 +53,113 @@
 
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
+                Console.Clear();
 
             } while (choice != 5);
         }
 
         static void HireEmployee()
         {
-            if (count >= 5)
+            Console.Write("Enter Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter Position: ");
+            string position = Console.ReadLine();
+
+            Console.Write("Enter Department: ");
+            string department = Console.ReadLine();
+
+            Console.Write("Enter Salary: ");
+            double salary = Convert.ToDouble(Console.ReadLine());
+
+            Employee emp = new Employee
             {
-                Console.WriteLine("\nEmployee Limit Reached.");
-                return;
-            }
+                Name = name,
+                Position = position,
+                Department = department,
+                Salary = salary
+            };
 
+            bool success = service.HireEmployee(emp);
 
-            string more = "Y";
-
-            while (more.ToUpper() == "Y" && count < 5)
-            {
-                Console.Write("Enter Name: ");
-                string name = Console.ReadLine().Trim();
-              
-                while (name == "")
-                {
-                    Console.Write("Name Cannot Be Empty. Please Enter Name: ");
-                    name = Console.ReadLine().Trim();
-                }
-                
-
-                Console.Write("Enter Position: ");
-                string position = Console.ReadLine().Trim();
-
-                while (position = "")
-                {
-                    Console.Write("Department Cannot Be Empty. Please Enter Department: ");
-                    name = Console.ReadLine().Trim();
-                }
-                Console.Write("Enter Department: ");
-                departments[count] = Console.ReadLine();
-
-                Console.Write("Enter Salary: ");
-                salaries[count] = Convert.ToDouble(Console.ReadLine()); 
-
-                count++;
-                Console.WriteLine("\nEMPLOYEE HIRED SUCCESSFULLY!");
-
-                if (count < 5)
-                {
-                    Console.Write("\nDo You Want To Hire Another Employee? (Y/N): ");
-                    more = Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("\nReached Maximum Employee Limit!");
-                }
-            }
+            if (success)
+                Console.WriteLine("\nEmployee hired successfully!");
+            else
+                Console.WriteLine("\nEmployee already exists.");
         }
 
         static void PromoteEmployee()
         {
-            if (count == 0)
+            var employees = service.GetEmployees();
+
+            if (employees.Count == 0)
             {
-                Console.WriteLine("\nNo employees available.");
+                Console.WriteLine("No employees available.");
                 return;
             }
 
-            Console.WriteLine("\nEmployees:");
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
-                Console.WriteLine($"{i}. {names[i]} - {positions[i]}, {departments[i]}");
+                Console.WriteLine($"{i}. {employees[i].Name} - {employees[i].Position}");
             }
 
-            Console.Write("\nEnter the Number of the Employee to Promote: ");
+            Console.Write("Enter Employee Number: ");
             int index = Convert.ToInt32(Console.ReadLine());
 
-            if (index >= 0 && index < count)
-            {
-                Console.Write("\nEnter New Position: ");
-                positions[index] = Console.ReadLine();
+            Console.Write("Enter New Position: ");
+            string newPosition = Console.ReadLine();
 
-                Console.Write("\nEnter Salary Increase: ");
-                double increase = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter Salary Increase: ");
+            double increase = Convert.ToDouble(Console.ReadLine());
 
-                salaries[index] += increase;
-                Console.WriteLine($"\n{names[index]} PROMOTED SUCCESSFULLY!");
-            }
-            else
-            {
-                Console.WriteLine("\nInvalid Employee Number.");
-            }
+            service.PromoteEmployee(employees[index].EmployeeId, newPosition, increase);
+
+            Console.WriteLine("Employee promoted successfully!");
         }
 
         static void TransferEmployee()
         {
-            if (count == 0)
+            var employees = service.GetEmployees();
+
+            if (employees.Count == 0)
             {
-                Console.WriteLine("\nNo Employees Available.");
+                Console.WriteLine("No employees available.");
                 return;
             }
 
-            Console.WriteLine("\nEmployees:");
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
-                Console.WriteLine($"{i}. {names[i]} - {positions[i]}, {departments[i]}");
+                Console.WriteLine($"{i}. {employees[i].Name} - {employees[i].Department}");
             }
 
-            Console.Write("\nEnter The Number of the Employee to Transfer: ");
+            Console.Write("Enter Employee Number: ");
             int index = Convert.ToInt32(Console.ReadLine());
 
-            if (index >= 0 && index < count)
-            {
-                Console.Write("\nEnter New Department: ");
-                departments[index] = Console.ReadLine();
-                Console.WriteLine($"\n{names[index]} TRANSFERRED SUCCESSFULLY!");
-            }
-            else
-            {
-                Console.WriteLine("\nInvalid Employee Number.");
-            }
+            Console.Write("Enter New Department: ");
+            string newDepartment = Console.ReadLine();
+
+            service.TransferEmployee(employees[index].EmployeeId, newDepartment);
+
+            Console.WriteLine("Employee transferred successfully!");
         }
 
         static void ViewEmployees()
         {
-            if (count == 0)
+            var employees = service.GetEmployees();
+
+            if (employees.Count == 0)
             {
-                Console.WriteLine("\nNo Employees Available.");
+                Console.WriteLine("No employees available.");
                 return;
             }
 
-            for (int i = 0; i < count; i++)
+            foreach (var emp in employees)
             {
-                Console.WriteLine($"\nEmployee #{i}");
-                Console.WriteLine("Name: " + names[i]);
-                Console.WriteLine("Position: " + positions[i]);
-                Console.WriteLine("Department: " + departments[i]);
-                Console.WriteLine("Salary: " + salaries[i]);
+                Console.WriteLine("\nEmployee Information");
+                Console.WriteLine("Name: " + emp.Name);
+                Console.WriteLine("Position: " + emp.Position);
+                Console.WriteLine("Department: " + emp.Department);
+                Console.WriteLine("Salary: " + emp.Salary);
             }
         }
     }

@@ -7,4 +7,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="EmployeeManagementAppService\**" />
+    <Compile Remove="EmployeeManagementDataService\**" />
+    <Compile Remove="EmployeeManagementModels\**" />
+    <EmbeddedResource Remove="EmployeeManagementAppService\**" />
+    <EmbeddedResource Remove="EmployeeManagementDataService\**" />
+    <EmbeddedResource Remove="EmployeeManagementModels\**" />
+    <None Remove="EmployeeManagementAppService\**" />
+    <None Remove="EmployeeManagementDataService\**" />
+    <None Remove="EmployeeManagementModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="EmployeeManagementAppService\EmployeeManagementAppService.csproj" />
+    <ProjectReference Include="EmployeeManagementModels\EmployeeManagementModels.csproj" />
+  </ItemGroup>
+
 </Project>
