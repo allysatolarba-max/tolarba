@@ -10,7 +10,9 @@ namespace EmployeeManagementAppService
 {
     public class EmployeeAppService
     {
-        EmployeeDataService employeeDataService = new EmployeeDataService();
+       //    InMemoryDataService employeeDataService = new InMemoryDataService();
+        EmployeeDataService employeeDataService = new EmployeeDataService(new EmployeeDBData());
+        EmployeeJson emp = new EmployeeJson();
 
         public bool HireEmployee(Employee newEmployee)
         {
@@ -26,7 +28,10 @@ namespace EmployeeManagementAppService
                 Salary = newEmployee.Salary
             };
 
-            employeeDataService.Add(employee);
+            //   employeeDataService.Add(employee);
+                 employeeDataService.Add(employee);
+            emp.Add(employee);
+
             return true;
         }
 
@@ -40,7 +45,9 @@ namespace EmployeeManagementAppService
             employee.Position = newPosition;
             employee.Salary += increase;
 
-            employeeDataService.Update(employee);
+            //     employeeDataService.Update(employee);
+            employeeDataService.UpdateEmployee(employee);
+            emp.UpdateEmployee(employee);
 
             return true;
         }
@@ -54,7 +61,9 @@ namespace EmployeeManagementAppService
 
             employee.Department = newDepartment;
 
-            employeeDataService.Update(employee);
+            //       employeeDataService.Update(employee);
+            employeeDataService.PromoteEmployee(employee);
+            emp.PromoteEmployee(employee);
 
             return true;
         }
@@ -62,11 +71,13 @@ namespace EmployeeManagementAppService
         public List<Employee> GetEmployees()
         {
             return employeeDataService.GetEmployees();
+            return emp.GetEmployees();
         }
 
         public Employee? GetEmployee(Guid employeeId)
         {
             return employeeDataService.GetById(employeeId);
+            return emp.GetById(employeeId);
         }
     }
 }
