@@ -53,6 +53,19 @@ namespace EmployeeManagementDataService
             insertCommand.ExecuteNonQuery();
             sqlConnection.Close();
         }
+
+        public void DeleteEmployee(Guid id)
+        {
+            sqlConnection.Open();
+            var updateStatement = $"DELETE FROM EmployeeDataBase WHERE EmployeeId = @EmployeeId";
+            SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection);
+            updateCommand.Parameters.AddWithValue("@EmployeeId", id);
+
+
+            updateCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
         public List<Employee> GetEmployees() {
             string selectStatement = "SELECT EmployeeId, Name, Position, Department, Salary FROM EmployeeDataBase";
             SqlCommand insertCommand = new SqlCommand(selectStatement, sqlConnection);

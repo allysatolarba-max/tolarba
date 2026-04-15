@@ -64,6 +64,16 @@ namespace EmployeeManagementDataService
             }
         }
 
+        public void Delete(Guid employeeId)
+        {
+            var employee = GetById(employeeId);
+
+            if (employee != null)
+            {
+                dummyEmployees.Remove(employee);
+            }
+
+        }
 
         public List<Employee> GetEmployees()
         {

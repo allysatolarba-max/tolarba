@@ -1,0 +1,58 @@
+[
+  {
+    "EmployeeId": "cc093dcb-83b2-4d28-ba4f-6942a87fca46",
+    "Name": null,
+    "Position": null,
+    "Department": null,
+    "Salary": 0
+  },
+  {
+    "EmployeeId": "00000000-0000-0000-0000-000000000000",
+    "Name": "Allysa",
+    "Position": null,
+    "Department": null,
+    "Salary": 0
+  },
+  {
+    "EmployeeId": "00000000-0000-0000-0000-000000000000",
+    "Name": null,
+    "Position": "Employer",
+    "Department": null,
+    "Salary": 0
+  },
+  {
+    "EmployeeId": "00000000-0000-0000-0000-000000000000",
+    "Name": null,
+    "Position": null,
+    "Department": "IT",
+    "Salary": 0
+  },
+  {
+    "EmployeeId": "00000000-0000-0000-0000-000000000000",
+    "Name": null,
+    "Position": null,
+    "Department": null,
+    "Salary": 1000
+  },
+  {
+    "EmployeeId": "f66a6122-ee2c-4da9-8999-7c2e3dc41561",
+    "Name": "ian",
+    "Position": "ceo of ceos",
+    "Department": "IT Department",
+    "Salary": 11012000
+  },
+  {
+    "EmployeeId": "93852f30-7fd6-475c-a84e-73829435c9c7",
+    "Name": "rick",
+    "Position": "ceo",
+    "Department": "IT Department",
+    "Salary": 100000
+  },
+  {
+    "EmployeeId": "f6d7cc71-e9fa-4b22-9209-22eb1bc7ceb7",
+    "Name": "rubie",
+    "Position": "ceo",
+    "Department": "it",
+    "Salary": 1000000
+  }
+]

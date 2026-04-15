@@ -19,7 +19,8 @@ namespace EmployeeManagementUI
                 Console.WriteLine("2. Promote Employee");
                 Console.WriteLine("3. Transfer Department");
                 Console.WriteLine("4. View Employees");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Remove Employee");
+                Console.WriteLine("6. Exit");
                 Console.Write("Enter Choice: ");
 
                 choice = Convert.ToInt32(Console.ReadLine());
@@ -43,6 +44,10 @@ namespace EmployeeManagementUI
                         break;
 
                     case 5:
+                        RemoveEmployee();
+                        break;
+
+                    case 6:
                         Console.WriteLine("Exiting System...");
                         break;
 
@@ -160,6 +165,33 @@ namespace EmployeeManagementUI
                 Console.WriteLine("Position: " + emp.Position);
                 Console.WriteLine("Department: " + emp.Department);
                 Console.WriteLine("Salary: " + emp.Salary);
+            }
+        }
+        static void RemoveEmployee() { 
+        
+            var employees = service.GetEmployees();
+            if (employees.Count == 0) 
+            {
+                Console.WriteLine("No Employees Available.");
+                return;
+            }
+            for (int i = 0; i < employees.Count; i++)
+            {
+                Console.WriteLine($"{i}.{employees[i].Name}");
+            }
+
+            Console.Write("Enter Employee Number to Remove: ");
+            int index = Convert.ToInt32(Console.ReadLine());
+
+            bool success = service.RemoveEmployee(employees[index].EmployeeId);
+
+            if (success)
+            {
+                Console.WriteLine("Employee Removed Successfully!");
+            } 
+            else
+            {
+                Console.WriteLine("Inavalid Employee.");
             }
         }
     }

@@ -26,6 +26,10 @@ namespace EmployeeManagementDataService
         {
             dataservice.UpdateEmployee(employee);
         }
+        public void DeleteEmployee(Guid id)
+        {
+            dataservice.DeleteEmployee(id);
+        }
         public Employee? GetById(Guid id)
         {
             return dataservice.GetById(id);

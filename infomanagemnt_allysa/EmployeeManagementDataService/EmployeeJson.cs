@@ -104,5 +104,16 @@ namespace EmployeeManagementDataService
             }
             SaveDataToJsonFile();
         }
+        public void DeleteEmployee(Guid id)
+        {
+            RetrieveDataFromJsonFile();
+
+            var ExistingEmp = emp.FirstOrDefault(x => x.EmployeeId == id);
+            if (ExistingEmp != null)
+            {
+                emp.Remove(ExistingEmp);
+            }
+            SaveDataToJsonFile();
+        }
     }
 }

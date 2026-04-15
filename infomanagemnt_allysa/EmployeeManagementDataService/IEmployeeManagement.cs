@@ -13,6 +13,7 @@ namespace EmployeeManagementDataService
         Employee? GetById(Guid id);
         void UpdateEmployee(Employee employee);
         void PromoteEmployee(Employee employee);
+        void DeleteEmployee(Guid id);
         bool EmployeeExists(string name);
         List<Employee> GetEmployees();
     

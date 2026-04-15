@@ -10,7 +10,7 @@ namespace EmployeeManagementAppService
 {
     public class EmployeeAppService
     {
-       //    InMemoryDataService employeeDataService = new InMemoryDataService();
+           InMemoryDataService employeedataService = new InMemoryDataService();
         EmployeeDataService employeeDataService = new EmployeeDataService(new EmployeeDBData());
         EmployeeJson emp = new EmployeeJson();
 
@@ -72,6 +72,17 @@ namespace EmployeeManagementAppService
         {
             return employeeDataService.GetEmployees();
             return emp.GetEmployees();
+        }
+
+        public bool RemoveEmployee(Guid employeeId)
+        {
+            var employee = employeeDataService.GetById(employeeId);
+
+            if(employee == null)
+                return false;
+
+            employeeDataService.DeleteEmployee(employeeId);
+            return true;
         }
 
         public Employee? GetEmployee(Guid employeeId)
